@@ -1,5 +1,5 @@
 <template>
-    <body>
+    <!-- <body> -->
         <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed side-trans-enabled">
             <div id="page-overlay"></div>
             <!-- Header -->
@@ -76,7 +76,7 @@
             <!-- END Footer -->
         </div>
     
-    </body>
+    <!-- </body> -->
 </template>
 
 <script>
@@ -88,5 +88,15 @@ export default {
         'nav-header': nav,
         foot,
     },
+    data(){
+        return{
+
+        }
+    },
+    methods:{
+        getFormInputs(){
+            
+        }
+    }
 };
 </script>
