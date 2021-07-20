@@ -1,6 +1,4 @@
 <template>
-<body>
-
     <div id="page-container" class="main-content-boxed side-trans-enabled">
     
         <!-- Main Container -->
@@ -29,14 +27,11 @@
                             </div>
                             <!-- END Header -->
     
-                            <!-- Sign In Form -->
-                            <!-- jQuery Validation functionality is initialized with .js-validation-signin class in js/pages/op_auth_signin.min.js which was auto compiled from _es6/pages/op_auth_signin.js -->
-                            <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
-                            <form class="js-validation-signin px-30" action="be_pages_auth_all.html" method="post" novalidate="novalidate">
+                            <form class="px-30" @submit.prevent="login">
                                 <div class="form-group row">
                                     <div class="col-12">
                                         <div class="form-material floating">
-                                            <input type="text" class="form-control" id="login-username" name="login-username">
+                                            <input required type="text" class="form-control" id="login-username" name="login-username">
                                             <label for="login-username">Username</label>
                                         </div>
                                     </div>
@@ -44,7 +39,7 @@
                                 <div class="form-group row">
                                     <div class="col-12">
                                         <div class="form-material floating">
-                                            <input type="password" class="form-control" id="login-password" name="login-password">
+                                            <input required type="password" class="form-control" id="login-password" name="login-password">
                                             <label for="login-password">Password</label>
                                         </div>
                                     </div>
@@ -59,8 +54,8 @@
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-sm btn-hero btn-alt-primary">
-                                                    <i class="si si-login mr-10"></i> Sign In
-                                                </button>
+                                        <i class="si si-login mr-10"></i> Sign In
+                                    </button>
                                 </div>
                             </form>
                             <!-- END Sign In Form -->
@@ -73,7 +68,21 @@
         </main>
         <!-- END Main Container -->
     </div>
-</body>
 </template>
+
+<script>
+export default {
+    data(){
+        return{
+
+        }
+    },
+    methods:{
+        login(){
+            console.log('login')
+        }
+    }
+}
+</script>
 
 
