@@ -52,7 +52,8 @@ export default {
   */
   plugins: [
     { src: '~/plugins/axios' },
-    { src: '~/plugins/persistedState.client.js' }
+    { src: '~/plugins/persistedState.client.js' },
+    '~/plugins/textFilter.js'
   ],
   /*
   ** Nuxt.js dev-modules
