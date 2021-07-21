@@ -103,17 +103,13 @@ export default {
                 data,
                 headers
             ).then(({ data }) => {
-                console.log(data);
-                this.$store.commit("SET_TOKEN", 'token');
+                // console.log(data);
+                this.$store.commit("SET_TOKEN", data.access_token);
                 this.$store.commit("SET_AUTHENTICATION", true);
                 this.$router.push('/home');
-                //set user  
             }).catch((error) => {
                 // console.log(error)
             });
-
-
-
         }
     }
 }
