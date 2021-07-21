@@ -29,32 +29,32 @@
                                 <form class="px-30" @submit.prevent="login">
                                     <div class="form-group row">
                                         <div class="col-12">
-                                            <div class="form-material floating">
-                                                <input required type="text" class="form-control" id="login-username" name="login-username">
+                                            <div class="form-material ">
+                                                <input v-model="form.username" required type="email" class="form-control" id="login-username" name="login-username">
                                                 <label for="login-username">Username</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-12">
-                                            <div class="form-material floating">
-                                                <input required type="password" class="form-control" id="login-password" name="login-password">
+                                            <div class="form-material ">
+                                                <input v-model="form.password" required type="password" class="form-control" id="login-password" name="login-password">
                                                 <label for="login-password">Password</label>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="login-remember-me" name="login-remember-me">
-                                                <label class="custom-control-label" for="login-remember-me">Remember Me</label>
+                                    <!-- <div class="form-group row">
+                                            <div class="col-12">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="login-remember-me" name="login-remember-me">
+                                                    <label class="custom-control-label" for="login-remember-me">Remember Me</label>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        </div> -->
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-sm btn-hero btn-alt-primary">
-                                            <i class="si si-login mr-10"></i> Sign In
-                                        </button>
+                                                                <i class="si si-login mr-10"></i> Sign In
+                                                            </button>
                                     </div>
                                 </form>
                                 <!-- END Sign In Form -->
@@ -72,18 +72,48 @@
 
 <script>
 import Form from 'vform'
+import { mapGetters, mapActions } from "vuex";
+
 export default {
     data() {
         return {
-            Form : new Form({
-                id:'',
-                passoword:''
+            form: new Form({
+                username: '',
+                passoword: ''
             })
         }
     },
     methods: {
         login() {
-            console.log('login')
+            var querystring = require('querystring');
+
+            const data = querystring.stringify({
+                grant_type: 'password',
+                'client_id': 'zVs3J7FZupB3TLPskQOy1xHLwYTRkzUSf2rdTDCu',
+                'client_secret': 'Zv19oWmm416sTyjWT5Sx2r1gRwjWrXU3P5dWledQpYjxEvavS58SPtz03M8wvsgajaVLhcimmJIUUYUDad06V6HQosmPoj3TPRNjg7bgniQlooIwyFWfz8KfkM5Tdh7R',
+                username: this.form.username,
+                password: this.form.password,
+            });
+            const headers = {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                'cache-control': "no-cache",
+            };
+            this.$axios.post(
+                '/api/v1/oauth/token/',
+                data,
+                headers
+            ).then(({ data }) => {
+                console.log(data);
+                this.$store.commit("SET_TOKEN", 'token');
+                this.$store.commit("SET_AUTHENTICATION", true);
+                this.$router.push('/home');
+                //set user  
+            }).catch((error) => {
+                // console.log(error)
+            });
+
+
+
         }
     }
 }
