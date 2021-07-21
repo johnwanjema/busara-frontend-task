@@ -27,9 +27,9 @@
     
     
                         <div class="dropdown-divider"></div>
-                        <nuxt-link class="dropdown-item" to="/">
+                        <a  @click="logout" class="dropdown-item" href="#">
                             <i class="si si-logout mr-5"></i> Sign Out
-                        </nuxt-link>
+                        </a>
                     </div>
                 </div>
                 <!-- END User Dropdown -->
@@ -101,6 +101,11 @@ export default {
                 }).catch((error) => {
                     // console.log(error)
                 })
+        },
+        logout(){
+            alert('qweqwe')
+            this.$store.commit("SET_TOKEN", '');
+            this.$store.commit("SET_AUTHENTICATION", false);
         }
     },
     mounted() {
