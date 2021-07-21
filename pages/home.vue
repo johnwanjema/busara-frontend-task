@@ -110,7 +110,8 @@ export default {
         }
     },
     mounted(){
-        this.getFormInputs()
+        this.getFormInputs();
+        // this.$swal('hello world')
     }
 };
 </script>

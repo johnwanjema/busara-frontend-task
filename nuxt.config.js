@@ -63,7 +63,9 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-  '@nuxtjs/axios'],
+  '@nuxtjs/axios',
+  'vue-sweetalert2/nuxt'
+],
   /*
   ** Build configuration
   */
