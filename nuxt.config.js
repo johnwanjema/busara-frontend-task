@@ -1,6 +1,7 @@
 
 export default {
-  ssr: false,
+  mode:'universal', 
+  // ssr: false, 
   /*
   ** Headers of the page
   */
@@ -52,7 +53,7 @@ export default {
   */
   plugins: [
     { src: '~/plugins/axios' },
-    { src: '~/plugins/persistedState.client.js' },
+    { src: '~/plugins/persistedState.client.js' ,ssr:false },
     '~/plugins/textFilter.js'
   ],
   /*
@@ -79,6 +80,6 @@ export default {
   },
 
   axios: {
-    baseURL: process.env.baseURL,
+    baseURL: 'http://fullstack-role.busara.io',
   },
 }
