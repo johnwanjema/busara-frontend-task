@@ -26,9 +26,9 @@
                                                     <div v-for="(question,i) in page.sections[0].questions" :key="i" class="col-md-6">
                                                         <div v-if="question.widget == 'select'">
                                                             <label class="col-12" for="example-select">Select</label>
-                                                            <select class="form-control" id="example-select" name="example-select">
-                                                                    <option v-for="(select,i) in question.q_options" :key="i" :value="select.name">{{select.name}}</option>
-                                                                </select>
+                                                            <select  v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" class="form-control" id="example-select" name="example-select">
+                                                                    <option v-for="(select,i)  in question.q_options" :key="i" :value="select.id" >{{select.name}}</option>
+                                                            </select>
                                                         </div>
                                                         <div v-else class="form-material">
                                                             <input v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" type="text" class="form-control" id="material-text" name="material-text" :placeholder="question.error_message">
