@@ -14,26 +14,33 @@
                         <!-- Static Labels -->
                         <div class="block">
                             <div class="block-content">
-                                <form-wizard shape="circle" color="#3498db" ref="wizard">
+                                <form-wizard shape="circle" color="#3498db" ref="wizard" :hide-buttons="true">
                                     <h2 slot="title">Welcome back</h2>
                                     <p slot="subtitle">Complete setting up your account</p>
                                     <!-- <div > -->
                                     <tab-content v-for="(page,i) in pages" :key="i" :title="page.name">
-                                        <h4>{{page.name}} </h4>
-                                        <form action="be_forms_elements_material.html" method="post" onsubmit="return false;">
+                                        <!-- <h4>{{page.name}} </h4> -->
+                                        <form class="js-validation-bootstrap" @submit.prevent="goNext">
                                             <div v-if="page.sections">
                                                 <div class="form-group row">
                                                     <div v-for="(question,i) in page.sections[0].questions" :key="i" class="col-md-6">
                                                         <div v-if="question.widget == 'select'">
                                                             <label class="col-12" for="example-select">Select</label>
-                                                            <select  v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" class="form-control" id="example-select" name="example-select">
-                                                                    <option v-for="(select,i)  in question.q_options" :key="i" :value="select.id" >{{select.name}}</option>
-                                                            </select>
+                                                            <select v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" class="form-control" id="example-select" name="example-select" required>
+                                                                                    <option v-for="(select,i)  in question.q_options" :key="i" :value="select.id" >{{select.name}}</option>
+                                                                            </select>
                                                         </div>
                                                         <div v-else class="form-material">
-                                                            <input v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" type="text" class="form-control" id="material-text" name="material-text" :placeholder="question.error_message">
+                                                            <input v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" type="text" class="form-control" id="material-text" name="material-text" :placeholder="question.error_message" required>
                                                             <label for="material-text">{{question.column_match | uppercaseText}}</label>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-md-11">
+                                                    </div>
+                                                    <div class="col-md-1" style="float:right">
+                                                        <button type="submit" class="btn btn-alt-primary">Next</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -51,10 +58,8 @@
                 <!-- END Material Design -->
             </div>
             <!-- END Page Content -->
-    
         </main>
         <!-- END Main Container -->
-    
         <!-- Footer -->
         <foot />
         <!-- END Footer -->
@@ -148,6 +153,10 @@ export default {
             }
             return false;
         },
+        goNext() {
+            console.log('qwqwe');
+            this.$refs.wizard.nextTab();
+        }
     },
     beforeMount() {
         this.getFormInputs();
