@@ -1,6 +1,6 @@
 
 export default {
-  mode: 'universal',
+  ssr: false,
   /*
   ** Headers of the page
   */
@@ -17,10 +17,10 @@ export default {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap",
       },
-      {
-        rel: "stylesheet",
-        href: "/css/codebase.min.css",
-      },
+      // {
+      //   rel: "stylesheet",
+      //   href: "/css/codebase.min.css",
+      // },
     ],
     script: [
       {
@@ -45,12 +45,14 @@ export default {
   ** Global CSS
   */
   css: [
-    // '@/static/css/codebase.min.css',
+    '@/static/css/codebase.min.css',
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/axios' },
+    { src: '~/plugins/persistedState.client.js' }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -61,7 +63,7 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-  ],
+  '@nuxtjs/axios'],
   /*
   ** Build configuration
   */
@@ -71,5 +73,9 @@ export default {
     */
     extend (config, ctx) {
     }
-  }
+  },
+
+  axios: {
+    baseURL: process.env.baseURL,
+  },
 }
