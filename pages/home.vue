@@ -94,9 +94,23 @@ export default {
         }
     },
     methods:{
-        getFormInputs(){
-            
+        async getFormInputs() {
+            await this.$axios.get("/api/v1/users/current-user", {
+                    headers: {
+                        'Accept-Language': 'en-US,en;q=0.8',
+                        'Content-Type': 'multipart/form-data',
+                    }
+                })
+                .then(({ data }) => {
+                    console.log(data);
+                    //set user
+                }).catch((error) => {
+                    // console.log(error)
+                })
         }
+    },
+    mounted(){
+        this.getFormInputs()
     }
 };
 </script>
