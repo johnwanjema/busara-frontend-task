@@ -15,10 +15,10 @@
                 <!-- User Dropdown -->
                 <div class="btn-group" role="group">
                     <button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fa fa-user d-sm-none"></i>
-                                                <span class="d-none d-sm-inline-block">J. Smith</span>
-                                                <i class="fa fa-angle-down ml-5"></i>
-                                            </button>
+                                                            <i class="fa fa-user d-sm-none"></i>
+                                                            <span class="d-none d-sm-inline-block">J. Smith</span>
+                                                            <i class="fa fa-angle-down ml-5"></i>
+                                                        </button>
                     <div class="dropdown-menu dropdown-menu-right min-width-200" aria-labelledby="page-header-user-dropdown">
                         <h5 class="h6 text-center py-10 mb-5 border-b text-uppercase">User</h5>
                         <nuxt-link class="dropdown-item" to="/profile">
@@ -27,9 +27,9 @@
     
     
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="op_auth_signin.html">
-                                                    <i class="si si-logout mr-5"></i> Sign Out
-                                                </a>
+                        <nuxt-link class="dropdown-item" to="/">
+                                                                <i class="si si-logout mr-5"></i> Sign Out
+                                                            </nuxt-link>
                     </div>
                 </div>
                 <!-- END User Dropdown -->
@@ -48,15 +48,15 @@
                             <!-- Close Search Section -->
                             <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
                             <button type="button" class="btn btn-secondary" data-toggle="layout" data-action="header_search_off">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
+                                                                    <i class="fa fa-times"></i>
+                                                                </button>
                             <!-- END Close Search Section -->
                         </div>
                         <input type="text" class="form-control" placeholder="Search or hit ESC.." id="page-header-search-input" name="page-header-search-input">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-secondary">
-                                                        <i class="fa fa-search"></i>
-                                                    </button>
+                                                                    <i class="fa fa-search"></i>
+                                                                </button>
                         </div>
                     </div>
                 </form>
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import axios from  'axios'
+import axios from 'axios'
 export default {
     data() {
         return {
@@ -86,16 +86,16 @@ export default {
         }
     },
     methods: {
-        getAuthenticatedUser() {
-            axios.get("http://fullstack-role.busara.io/api/v1/users/current-user", {
+        async getAuthenticatedUser() {
+            await this.$axios.get("/api/v1/users/current-user", {
                     headers: {
                         'Accept-Language': 'en-US,en;q=0.8',
                         'Content-Type': 'multipart/form-data',
                     }
                 })
                 .then(({ data }) => {
-                   console.log(data);
-                   //set user
+                    console.log(data);
+                    //set user
                 }).catch((error) => {
                     // console.log(error)
                 })
