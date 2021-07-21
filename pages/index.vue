@@ -9,7 +9,7 @@
                         <div class="hero-static col-md-6 col-xl-8 d-none d-md-flex align-items-md-end">
                             <div class="p-30 js-appear-enabled animated fadeIn" data-toggle="appear">
                                 <p class="font-size-h3 font-w600 text-white">
-                                    Get Inspired and Create.
+                                    Our minds are far less independent than we would like to believe.
                                 </p>
                                 <p class="font-italic text-white-op">
                                     Copyright © <span class="js-year-copy js-year-copy-enabled">2021</span>
@@ -27,7 +27,7 @@
                                 <!-- END Header -->
     
                                 <form class="px-30" @submit.prevent="login">
-                                    <div class="form-group row">
+                                    <div class="form-group row" :class="error ? 'row is-invalid':''">
                                         <div class="col-12">
                                             <div class="form-material ">
                                                 <input v-model="form.username" required type="email" class="form-control" id="login-username" name="login-username">
@@ -35,7 +35,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="form-group row" :class="error ? 'row is-invalid':''">
                                         <div class="col-12">
                                             <div class="form-material ">
                                                 <input v-model="form.password" required type="password" class="form-control" id="login-password" name="login-password">
@@ -43,14 +43,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="form-group row">
-                                            <div class="col-12">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="login-remember-me" name="login-remember-me">
-                                                    <label class="custom-control-label" for="login-remember-me">Remember Me</label>
-                                                </div>
-                                            </div>
-                                        </div> -->
+                                   <div v-if="error" style="color:red" class=" animated fadeInDown">Invalid credentials</div>
+                                   <br>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-sm btn-hero btn-alt-primary">
                                                                 <i class="si si-login mr-10"></i> Sign In
@@ -79,8 +73,9 @@ export default {
         return {
             form: new Form({
                 username: '',
-                passoword: ''
-            })
+                password: ''
+            }),
+            error:false
         }
     },
     methods: {
@@ -109,6 +104,9 @@ export default {
                 this.$router.push('/home');
             }).catch((error) => {
                 // console.log(error)
+                // console.log(error.message)
+                this.error = true;
+                this.form.password = '';
             });
         }
     }
