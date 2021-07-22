@@ -53,7 +53,7 @@ export default {
   */
   plugins: [
     { src: '~/plugins/axios' },
-    { src: '~/plugins/persistedState.client.js' ,ssr:false },
+    // { src: '~/plugins/persistedState.client.js' ,ssr:false },
     '~/plugins/textFilter.js'
   ],
   /*
