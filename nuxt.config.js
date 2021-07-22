@@ -1,6 +1,6 @@
 
 export default {
-  // mode:'universal', 
+  mode:'universal', 
   // ssr: false, 
   /*
   ** Headers of the page
