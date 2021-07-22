@@ -27,14 +27,16 @@
                                                         <div v-if="question.widget == 'select'">
                                                             <label class="col-12" for="example-select">Select {{question.column_match }}</label>
                                                             <select v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" class="form-control" :id="'example-select ' + i" name="example-select" required>
-                                                                                    <option v-for="(select,i)  in question.q_options" :key="i" :value="select.id" >{{select.name}}</option>
-                                                                            </select>
+                                                                    <option v-for="(select,i)  in question.q_options" :key="i" :value="select.id" >{{select.name}}</option>
+                                                            </select>
                                                         </div>
                                                         <div v-else class="form-material">
                                                             <input v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" type="text" class="form-control" :id="'material-text ' + i" name="material-text" :placeholder="'Enter '+question.column_match" required>
-                                                            <label v-if="question.column_match == 'contact'" for="material-text">{{question.column_match | uppercaseText}}  format   +254721000000</label>
+                                                            <label v-if="question.column_match == 'contact'" for="material-text">{{question.column_match | uppercaseText}}  format +254721000000</label>
                                                             <label v-else for="material-text">{{question.column_match | uppercaseText}}</label>
+
                                                         </div>
+                                                        <div v-if="error && question.column_match == 'contact' " style="color:red" class=" animated fadeInDown">Invalid phone number format use +254721000000</div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -179,7 +181,8 @@ export default {
                     }
                 })
                 .then(({ data }) => {
-                    // console.log(data.message);
+                    // console.log('message ni hii buuda'+data.message);
+                    this.error = false;
                     if (data.message == 'details saved successfully') {
                         this.$swal({
                             position: 'top-end',
@@ -191,7 +194,9 @@ export default {
                         this.$refs.wizard.navigateToTab(0)
                     }
                 }).catch((error) => {
-                    // console.log(error)
+                    console.log(error);
+                    this.error = true;
+                    this.$refs.wizard.navigateToTab(0)
                 })
         }
     },
