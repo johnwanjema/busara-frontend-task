@@ -26,12 +26,12 @@
                                                     <div v-for="(question,i) in page.sections[0].questions" :key="i" class="col-md-6">
                                                         <div v-if="question.widget == 'select'">
                                                             <label class="col-12" for="example-select">Select {{question.column_match }}</label>
-                                                            <select v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" class="form-control" :id="'example-select' + i" name="example-select" required>
-                                                                <option v-for="(select,i)  in question.q_options" :key="i" :value="select.id" >{{select.name}}</option>
-                                                        </select>
+                                                            <select v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" class="form-control" :id="'example-select ' + i" name="example-select" required>
+                                                                                <option v-for="(select,i)  in question.q_options" :key="i" :value="select.id" >{{select.name}}</option>
+                                                                        </select>
                                                         </div>
                                                         <div v-else class="form-material">
-                                                            <input v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" type="text" class="form-control" id="material-text" name="material-text" :placeholder="'Enter '+question.column_match" required>
+                                                            <input v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" type="text" class="form-control" :id="'material-text ' + i" name="material-text" :placeholder="'Enter '+question.column_match" required>
                                                             <label for="material-text">{{question.column_match | uppercaseText}}</label>
                                                         </div>
                                                     </div>
@@ -176,14 +176,16 @@ export default {
             await this.$axios.post("api/v1/recruitment/answers/submit/", data, {
                     headers: {
                         Authorization: 'Bearer ' + this.token,
-                        // 'Content-Type': 'text/plain',  
-                        // 'HTTP_VERSIONCODE': 200,  
-                        // 'VERSIONCODE': 200,  
                     }
                 })
                 .then(({ data }) => {
-                    console.log(data.message)
-                    // if(data.message == '')
+                    // console.log(data.message);
+                    this.$swal({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Survey submitted',
+                        showConfirmButton: true,
+                    });
                 }).catch((error) => {
                     // console.log(error)
                 })
@@ -191,6 +193,7 @@ export default {
     },
     mounted() {
         this.getFormInputs();
+
     }
 };
 </script>
