@@ -80,6 +80,6 @@ export default {
   },
 
   axios: {
-    baseURL: 'http://fullstack-role.busara.io',
+    baseURL: process.env.baseURL,
   },
 }
