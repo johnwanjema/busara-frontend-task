@@ -21,9 +21,9 @@
                                                             </button>
                     <div class="dropdown-menu dropdown-menu-right min-width-200" aria-labelledby="page-header-user-dropdown">
                         <h5 class="h6 text-center py-10 mb-5 border-b text-uppercase">User</h5>
-                        <nuxt-link class="dropdown-item" to="/profile">
+                        <!-- <nuxt-link class="dropdown-item" to="/profile">
                             <i class="si si-user mr-5"></i> Profile
-                        </nuxt-link>
+                        </nuxt-link> -->
     
     
                         <div class="dropdown-divider"></div>
@@ -103,7 +103,6 @@ export default {
                 })
         },
         logout(){
-            alert('qweqwe')
             this.$store.commit("SET_TOKEN", '');
             this.$store.commit("SET_AUTHENTICATION", false);
         }
