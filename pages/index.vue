@@ -21,8 +21,8 @@
                                 <!-- Header -->
                                 <div class="px-30 py-10">
                                     <img src="/Busara_Logo.svg" alt="Busara Logo">
-                                    <h4 class=" mt-30 mb-10">Welcome to Your Dashboard</h4>
-                                    <h2 class="h5 font-w400 text-muted mb-0">Please sign in</h2>
+                                    <h4 class=" mt-30 mb-10">Welcome </h4>
+                                    <h2 class="h5 font-w400 text-muted mb-0">Please sign in to acess your account</h2>
                                 </div>
                                 <!-- END Header -->
     
