@@ -15,23 +15,23 @@
                         <div class="block">
                             <div class="block-content">
                                 <form-wizard shape="circle" color="#3498db" ref="wizard" :hide-buttons="true">
-                                    <h2 slot="title">Welcome back</h2>
+                                    <h3 slot="title"><u>Busara Survey</u></h3>
                                     <p slot="subtitle">Complete setting up your account</p>
                                     <!-- <div > -->
                                     <tab-content v-for="(page,i) in pages" :key="i" :title="page.name">
                                         <!-- <h4>{{page.name}} </h4> -->
-                                        <form class="js-validation-bootstrap" @submit.prevent="goNext">
+                                        <form class="js-validation-bootstrap" @submit.prevent="goNext(i)">
                                             <div v-if="page.sections">
                                                 <div class="form-group row">
                                                     <div v-for="(question,i) in page.sections[0].questions" :key="i" class="col-md-6">
                                                         <div v-if="question.widget == 'select'">
-                                                            <label class="col-12" for="example-select">Select</label>
-                                                            <select v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" class="form-control" id="example-select" name="example-select" required>
-                                                                                    <option v-for="(select,i)  in question.q_options" :key="i" :value="select.id" >{{select.name}}</option>
-                                                                            </select>
+                                                            <label class="col-12" for="example-select">Select {{question.column_match }}</label>
+                                                            <select v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" class="form-control" :id="'example-select' + i" name="example-select" required>
+                                                                <option v-for="(select,i)  in question.q_options" :key="i" :value="select.id" >{{select.name}}</option>
+                                                        </select>
                                                         </div>
                                                         <div v-else class="form-material">
-                                                            <input v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" type="text" class="form-control" id="material-text" name="material-text" :placeholder="question.error_message" required>
+                                                            <input v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" type="text" class="form-control" id="material-text" name="material-text" :placeholder="'Enter '+question.column_match" required>
                                                             <label for="material-text">{{question.column_match | uppercaseText}}</label>
                                                         </div>
                                                     </div>
@@ -40,7 +40,8 @@
                                                     <div class="col-md-11">
                                                     </div>
                                                     <div class="col-md-1" style="float:right">
-                                                        <button type="submit" class="btn btn-alt-primary">Next</button>
+                                                        <button v-if="i == pages.length - 1" type="submit" class="btn btn-alt-primary">Finish</button>
+                                                        <button v-else type="submit" class="btn btn-alt-primary">Next</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -64,7 +65,6 @@
         <foot />
         <!-- END Footer -->
     </div>
-    
     <!-- </body> -->
 </template>
 
@@ -87,7 +87,20 @@ export default {
             pages: [{}],
             error: false,
             answers: [],
-            majibu: []
+            majibu: [],
+            survey: {
+                ans: [],
+                end_time: "",
+                local_id: 0,
+                location: {
+                    "accuracy": 0,
+                    "lat": 0,
+                    "lon": 0
+                },
+                start_time: "",
+                survey_id: "1"
+
+            }
         }
     },
     computed: {
@@ -102,6 +115,7 @@ export default {
                 })
                 .then(({ data }) => {
                     this.pages = data.forms[0].pages;
+                    this.survey.start_time = new Date();
                 }).catch((error) => {
                     // console.log(error)
                 })
@@ -116,24 +130,16 @@ export default {
                 });
             } else {
                 //check if answer exists already & update
-
                 if (this.checkIfInArray(this.majibu, { q_id: q_id })) {
-                    console.log(q_id)
-                    console.log(this.majibu)
                     // console.log(this.majibu.findIndex(q_id => q_id))
-
                     for (var i = 0; i < this.majibu.length; i++) {
                         if (this.majibu[i].q_id === q_id) {
-                            console.log(this.majibu[i].q_ans);
+                            // console.log(this.majibu[i].q_ans);
                             this.majibu[i].q_ans = q_ans;
-                            console.log(this.majibu[i].q_ans);
+                            // console.log(this.majibu[i].q_ans);
                         }
                     }
 
-                    // var index = this.majibu.findIndex(q_id => q_id);
-                    // //update at this index
-                    // //Update object's name property.
-                    // this.majibu[index].q_ans = q_ans;
                 } else {
                     //if not in array push
                     this.majibu.push({
@@ -153,14 +159,38 @@ export default {
             }
             return false;
         },
-        goNext() {
-            console.log('qwqwe');
-            this.$refs.wizard.nextTab();
+        goNext(i) {
+
+            if (i !== this.pages.length - 1) {
+                this.$refs.wizard.nextTab();
+            } else {
+                this.submitSurvey();
+            }
+        },
+        async submitSurvey() {
+            // // this.$swal('form complete');
+            this.survey.end_time = new Date();
+            this.survey.ans = this.majibu;
+            var data = [this.survey]
+            console.log(data);
+            await this.$axios.post("api/v1/recruitment/answers/submit/", data, {
+                    headers: {
+                        Authorization: 'Bearer ' + this.token,
+                        // 'Content-Type': 'text/plain',  
+                        // 'HTTP_VERSIONCODE': 200,  
+                        // 'VERSIONCODE': 200,  
+                    }
+                })
+                .then(({ data }) => {
+                    console.log(data.message)
+                    // if(data.message == '')
+                }).catch((error) => {
+                    // console.log(error)
+                })
         }
     },
-    beforeMount() {
+    mounted() {
         this.getFormInputs();
-        // this.$swal('hello world')
     }
 };
 </script>
