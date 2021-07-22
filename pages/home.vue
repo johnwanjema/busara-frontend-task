@@ -32,7 +32,8 @@
                                                         </div>
                                                         <div v-else class="form-material">
                                                             <input v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" type="text" class="form-control" :id="'material-text ' + i" name="material-text" :placeholder="'Enter '+question.column_match" required>
-                                                            <label for="material-text">{{question.column_match | uppercaseText}}</label>
+                                                            <label v-if="question.column_match == 'contact'" for="material-text">{{question.column_match | uppercaseText}}  format   +254721000000</label>
+                                                            <label v-else for="material-text">{{question.column_match | uppercaseText}}</label>
                                                         </div>
                                                     </div>
                                                 </div>
