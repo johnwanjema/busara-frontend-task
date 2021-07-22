@@ -27,8 +27,8 @@
                                                         <div v-if="question.widget == 'select'">
                                                             <label class="col-12" for="example-select">Select {{question.column_match }}</label>
                                                             <select v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" class="form-control" :id="'example-select ' + i" name="example-select" required>
-                                                                                <option v-for="(select,i)  in question.q_options" :key="i" :value="select.id" >{{select.name}}</option>
-                                                                        </select>
+                                                                                    <option v-for="(select,i)  in question.q_options" :key="i" :value="select.id" >{{select.name}}</option>
+                                                                            </select>
                                                         </div>
                                                         <div v-else class="form-material">
                                                             <input v-model="answers[i]" @change="setAnswers(question.column_match,answers[i],question.id)" type="text" class="form-control" :id="'material-text ' + i" name="material-text" :placeholder="'Enter '+question.column_match" required>
@@ -160,7 +160,6 @@ export default {
             return false;
         },
         goNext(i) {
-
             if (i !== this.pages.length - 1) {
                 this.$refs.wizard.nextTab();
             } else {
@@ -180,13 +179,16 @@ export default {
                 })
                 .then(({ data }) => {
                     // console.log(data.message);
-                    if(data.message == 'details saved successfully')
-                    this.$swal({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Survey submitted',
-                        showConfirmButton: true,
-                    });
+                    if (data.message == 'details saved successfully') {
+                        this.$swal({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Survey submitted',
+                            showConfirmButton: true,
+                        });
+                        this.survey.ans = [];   
+                        this.$refs.wizard.navigateToTab(0)
+                    }
                 }).catch((error) => {
                     // console.log(error)
                 })
