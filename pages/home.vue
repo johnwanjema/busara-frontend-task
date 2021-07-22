@@ -98,8 +98,7 @@ export default {
                     "lon": 0
                 },
                 start_time: "",
-                survey_id: "1"
-
+                survey_id: ""
             }
         }
     },
@@ -116,6 +115,7 @@ export default {
                 .then(({ data }) => {
                     this.pages = data.forms[0].pages;
                     this.survey.start_time = new Date();
+                    this.survey.survey_id = data.forms[0].id;
                 }).catch((error) => {
                     // console.log(error)
                 })
@@ -172,7 +172,7 @@ export default {
             this.survey.end_time = new Date();
             this.survey.ans = this.majibu;
             var data = [this.survey]
-            console.log(data);
+            // console.log(data);
             await this.$axios.post("api/v1/recruitment/answers/submit/", data, {
                     headers: {
                         Authorization: 'Bearer ' + this.token,
@@ -180,6 +180,7 @@ export default {
                 })
                 .then(({ data }) => {
                     // console.log(data.message);
+                    if(data.message == 'details saved successfully')
                     this.$swal({
                         position: 'top-end',
                         icon: 'success',
@@ -193,7 +194,6 @@ export default {
     },
     mounted() {
         this.getFormInputs();
-
     }
 };
 </script>

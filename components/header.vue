@@ -103,7 +103,6 @@ export default {
                 })
         },
         logout(){
-            alert('qweqwe')
             this.$store.commit("SET_TOKEN", '');
             this.$store.commit("SET_AUTHENTICATION", false);
         }
