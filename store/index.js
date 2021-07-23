@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import createPersistedState from 'vuex-persistedstate'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
 const store = () => {
     return new Vuex.Store({
-        // plugins: [createPersistedState()],
+        plugins: [createPersistedState()],
         state: {
             token: '',
             isAuthenticated: false,

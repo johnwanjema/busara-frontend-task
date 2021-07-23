@@ -1,7 +1,7 @@
 
 export default {
   // mode:'universal', 
-  // ssr: false,   
+  ssr: false,   
   /*
   ** Headers of the page
   */
@@ -53,7 +53,7 @@ export default {
   */
   plugins: [
     { src: '~/plugins/axios' },
-    // { src: '~/plugins/persistedState.client.js' ,ssr:false },
+    { src: '~/plugins/persistedState.client.js'},
     '~/plugins/textFilter.js'
   ],
   /*
