@@ -82,7 +82,7 @@ Create an issue mentioning the bug you have found
 
 ## Support and contact details
 
-Contact [John Wanjema](jonwanjema@gmail.com) for further help/support
+Contact [John Wanjema](https://github.com/johnwanjema) for further help/support
 
 
 <!-- Copyright (c)2019 **John Wanjema** -->
