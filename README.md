@@ -85,5 +85,5 @@ Create an issue mentioning the bug you have found
 Contact [John Wanjema](jonwanjema@gmail.com) for further help/support
 
 
-Copyright (c)2019 **John Wanjema**
+<!-- Copyright (c)2019 **John Wanjema** -->
 
