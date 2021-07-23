@@ -45,21 +45,20 @@ git init
 git remote add origin <your-repository-url>
 ```
 
+#### Setting up environment variables
+
+Create a `.env` file and paste paste the following filling where appropriate:
+
+```
+baseURL=<BaseUrl>
+```
+
+
 ## Build Setup
 
 ``` bash
 # install dependencies
 $ npm run install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
 ```
 
 
